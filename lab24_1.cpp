@@ -64,3 +64,24 @@ void List::append(int d){
 }
 
 //Write List::remove() here
+
+void List::remove(int target_index){
+	if (target_index < 0 || target_index >= size) {
+		return; // Invalid index
+	}
+	
+	Node* searching = root;
+	
+	if (target_index == 0) {
+		root = searching->next; // Move root to the next node
+		delete searching; // Delete the old root
+	} else {
+		for (int i = 0; i < target_index - 1; i++) {
+			searching = searching->next; // Move to the node before the target
+		}
+		Node* to_delete = searching->next; // Node to be deleted
+		searching->next = to_delete->next; // Bypass the node to be deleted
+		delete to_delete; // Delete the target node
+	}
+	size--;
+}
